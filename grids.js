@@ -86,7 +86,7 @@ function layout() {
           case 3:
             return masterGrid(windows, 2, 1.6); // master + 2 columns, master clearly wider
           case 4:
-            return masterGrid(windows, 3, 1.3); // four columns, master slightly wider
+            return masterGrid(windows, 3, 1.5); // four columns, master a touch wider
           case 5:
             return masterGrid(windows, 2); // master + 2×2
           case 6:
