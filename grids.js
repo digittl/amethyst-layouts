@@ -84,7 +84,7 @@ function layout() {
           case 2:
             return equalGrid(windows, 2);
           case 3:
-            return equalGrid(windows, 3);
+            return masterGrid(windows, 2, 1.6); // master + 2 columns, master clearly wider
           case 4:
             return masterGrid(windows, 3, 1.3); // four columns, master slightly wider
           case 5:
