@@ -74,9 +74,12 @@ function layout() {
         return out;
       }
 
+      var mainIsChrome = windows[0].app && windows[0].app.indexOf("Chrome") !== -1;
+
       // Widescreen — full-height columns are natural, so spread out. Counts that
       // divide into a balanced grid get a uniform one; the awkward odd counts
-      // (5, 7) drop the spare window into a focus master with the rest beside it.
+      // (5, 7) drop the spare window into a focus master with the rest beside it
+      // only when Chrome holds the main slot.
       if (ultrawide) {
         switch (n) {
           case 1:
@@ -84,15 +87,15 @@ function layout() {
           case 2:
             return equalGrid(windows, 2);
           case 3:
-            return masterGrid(windows, 2, 1.6); // master + 2 columns, master clearly wider
+            return mainIsChrome ? masterGrid(windows, 2, 1.6) : equalGrid(windows, 3);
           case 4:
-            return masterGrid(windows, 3, 1.5); // four columns, master a touch wider
+            return mainIsChrome ? masterGrid(windows, 3, 1.5) : equalGrid(windows, 4);
           case 5:
-            return masterGrid(windows, 2); // master + 2×2
+            return mainIsChrome ? masterGrid(windows, 2) : equalGrid(windows, 3);
           case 6:
             return equalGrid(windows, 3); // 3×2
           case 7:
-            return masterGrid(windows, 3); // master + 3×2
+            return mainIsChrome ? masterGrid(windows, 3) : equalGrid(windows, 4);
           case 8:
             return equalGrid(windows, 4); // 4×2
           default:
@@ -102,14 +105,14 @@ function layout() {
 
       // Normal (≈16:9) — columns get narrow fast, so favour balanced near-square
       // grids. Three windows are the one focus case worth a master (one big + two
-      // stacked); past that, plain grids read best.
+      // stacked) only when Chrome holds the main slot; past that, plain grids read best.
       switch (n) {
         case 1:
           return equalGrid(windows, 1);
         case 2:
           return equalGrid(windows, 2);
         case 3:
-          return masterGrid(windows, 1); // master + 2 stacked
+          return mainIsChrome ? masterGrid(windows, 1) : equalGrid(windows, 2);
         case 4:
           return equalGrid(windows, 2); // 2×2
         case 5:
